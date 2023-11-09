@@ -1,3 +1,106 @@
+-- Busca Ano e Nomes dos filmes
+select
+	Nome,
+	Ano
+from Filmes
+
+-- Busca Ano e Nomes dos filmes ordenados por ano
+select 
+	Filmes.Nome,
+	Filmes.Ano,
+	Filmes.Duracao
+from Filmes
+order by Ano ASC;
+
+-- Busca pelo filme "De volta para o futuro", trazendo o nome, ano e a duracao
+select 
+	Filmes.Nome,
+	Filmes.Ano,
+	Filmes.Duracao
+from Filmes
+where Filmes.Nome = 'De Volta para o Futuro';
+
+-- Busca os filmes lançados em 1997
+select 
+	Filmes.Nome,
+	Filmes.Ano,
+	Filmes.Duracao
+from Filmes
+where Filmes.Ano = 1997;
+
+-- Busca os filmes lançados após o ano 2000
+select 
+	Filmes.Nome,
+	Filmes.Ano,
+	Filmes.Duracao
+from Filmes
+where Filmes.Ano >= 2000;
+
+-- Busca os filmes com a duração maior que 100 e menor que 150
+-- ordenando pelo duração em ordem crescente
+select
+	Filmes.Nome,
+	Filmes.Ano,
+	Filmes.Duracao
+from Filmes
+where Duracao > 100 and Duracao < 150
+order by Duracao ASC;
+
+-- Busca a quantidade de filmes lançadas no ano, agrupando por ano,
+-- ordenando pela duração em ordem decrescente
+select 
+	Filmes.Ano, 
+	COUNT(*) 
+	as quantidade_de_filmes
+from Filmes
+group by Ano
+order by quantidade_de_filmes desc;
+
+-- Busca Atores do gênero masculino, retornando o PrimeiroNome, UltimoNome
+select 
+	PrimeiroNome,
+	UltimoNome,
+	Genero
+from Atores
+where Genero = 'M'
+order by PrimeiroNome
+
+-- Busca os atores do gênero feminino, retornando o PrimeiroNome, UltimoNome,
+-- e ordernando pelo PrimeiroNome
+select * from Atores
+select 
+	Id,
+	PrimeiroNome,
+	UltimoNome,
+	Genero
+from Atores
+where Genero = 'F'
+order by PrimeiroNome
+
+-- Busca o nome do filme e o gênero
+select F.Nome as FilmesGenero, G.Genero
+from Filmes as F 
+join FilmesGenero as FG on F.Id = FG.IdFilme
+join Generos as G on FG.IdGenero = G.Id
+
+-- Busca o nome do filme e o gênero do tipo "Mistério"
+select F.Nome as FilmesGenero, G.Genero
+from Filmes as F 
+join FilmesGenero as FG on F.Id = FG.IdFilme
+join Generos as G on FG.IdGenero = G.Id
+where G.Genero = 'Mistério';
+
+-- Busca o nome dos filmes e os atores e seus
+-- PrimeiroNome, UltimoNome e Papel
+select Filmes.Nome as Nome_do_Filme,
+	Atores.PrimeiroNome,
+	Atores.UltimoNome,
+	ElencoFilme.Papel
+from Filmes
+join ElencoFilme on Filmes.Id = ElencoFilme.IdFilme
+join Atores on ElencoFilme.IdAtor = Atores.Id;
+
+
 CREATE DATABASE [Filmes]
 GO
 USE [Filmes]
